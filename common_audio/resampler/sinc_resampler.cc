@@ -95,7 +95,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/system/arch.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"  // kSSE2, WebRtc_G...
+//#include "system_wrappers/include/cpu_features_wrapper.h"  // kSSE2, WebRtc_G...
 
 namespace webrtc {
 
@@ -133,7 +133,8 @@ void SincResampler::InitializeCPUSpecificFeatures() {}
 #define CONVOLVE_FUNC convolve_proc_
 
 void SincResampler::InitializeCPUSpecificFeatures() {
-  convolve_proc_ = WebRtc_GetCPUInfo(kSSE2) ? Convolve_SSE : Convolve_C;
+  //convolve_proc_ = WebRtc_GetCPUInfo(kSSE2) ? Convolve_SSE : Convolve_C;
+    convolve_proc_ = Convolve_C;
 }
 #endif
 #elif defined(WEBRTC_HAS_NEON)

@@ -52,7 +52,7 @@ constexpr size_t WavHeaderSize(WavFormat format) {
 
 // Returns the maximum size of the supported WAV formats.
 constexpr size_t MaxWavHeaderSize() {
-  return max(WavHeaderSize(WavFormat::kWavFormatPcm),
+  return std::max(WavHeaderSize(WavFormat::kWavFormatPcm),
                   WavHeaderSize(WavFormat::kWavFormatIeeeFloat));
 }
 
