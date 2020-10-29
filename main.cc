@@ -8,6 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+
+# pragma comment(lib, "secur32.lib")
+# pragma comment(lib, "winmm.lib")
+# pragma comment(lib, "dmoguids.lib")
+# pragma comment(lib, "wmcodecdspuuid.lib")
+# pragma comment(lib, "msdmo.lib")
+# pragma comment(lib, "Strmiids.lib")
+
+
 #include <array>
 #include <string>
 #include <vector>
@@ -114,6 +123,7 @@ int main(int argc, char* argv[]) {
 }  // namespace test
 }  // namespace rnn_vad
 }  // namespace webrtc
+
 
 int main(int argc, char* argv[]) {
   return webrtc::rnn_vad::test::main(argc, argv);
