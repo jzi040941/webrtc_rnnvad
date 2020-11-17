@@ -9,19 +9,18 @@ This repository just contains the scripts to test RNN VAD library from WebRTC so
 
 1. Get Abseil-cpp source code
 ```
-git submodule update --recursive --remote
+git clone https://github.com/abseil/abseil-cpp.git
 ```
 
 2. Build with cmake
 ```
 mkdir bin
 cmake ..
-make
 ```
 
 ## Usage
 you need wav file which is 16khz sample rate for test RNNVAD
 
 ```
-main.exe -i test.wav -f features.file -o vadprob.file
+webrtc_rnnvad.exe -i test.wav -f features.file -o vadprob.file
 ```
