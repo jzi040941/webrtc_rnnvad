@@ -28,4 +28,4 @@ webrtc_rnnvad.exe -i test.wav -f features.file -o vadprob.file
 ## NOTE  
 for linux env  
 in common\_audio/resampler/sinc\_resampler.cc    
-convolve\_SSE2 is disabled for convinience  
+convolve\_SSE2 is disabled for convenience  
