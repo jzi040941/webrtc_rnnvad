@@ -9,13 +9,18 @@ set(COMPILE_OPTION)
 set(INCL)
 set(SRC)
 
-add_definitions(-D_WINSOCKAPI_ -DWEBRTC_WIN -D_USE_MATH_DEFINES -DNOMINMAX)
-
-
+if(MSVC)
+  add_definitions(-D_WINSOCKAPI_ -DWEBRTC_WIN -D_USE_MATH_DEFINES -DNOMINMAX)
+else(MSVC)
+  add_definitions(
+    -DWEBRTC_POSIX 
+    -DWEBRTC_LINUX 
+    -D_USE_MATH_DEFINES 
+    -DNOMINMAX)
+endif()
 
 #include(cmake/AbseilHelpers.cmake)
 # Process Abseil's CMake build system
-
 
 list(APPEND SRC
   main.cc
@@ -109,6 +114,9 @@ INCLUDE_DIRECTORIES(
 
 add_subdirectory(abseil-cpp)
 add_executable(${CMAKE_PROJECT_NAME} ${SRC})
+
+target_compile_options(${PROJECT_NAME} PRIVATE ${COMPILE_OPTION} )
+
 #ADD_EXECUTABLE(main main.cc)
 target_link_libraries(${CMAKE_PROJECT_NAME} absl::algorithm
 absl::base

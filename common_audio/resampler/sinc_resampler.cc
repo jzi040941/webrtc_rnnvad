@@ -121,30 +121,37 @@ double SincScaleFactor(double io_ratio) {
 
 const size_t SincResampler::kKernelSize;
 
-// If we know the minimum architecture at compile time, avoid CPU detection.
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-#if defined(__SSE2__)
-#define CONVOLVE_FUNC Convolve_SSE
-void SincResampler::InitializeCPUSpecificFeatures() {}
-#else
-// x86 CPU detection required.  Function will be set by
-// InitializeCPUSpecificFeatures().
-// TODO(dalecurtis): Once Chrome moves to an SSE baseline this can be removed.
-#define CONVOLVE_FUNC convolve_proc_
-
-void SincResampler::InitializeCPUSpecificFeatures() {
-  //convolve_proc_ = WebRtc_GetCPUInfo(kSSE2) ? Convolve_SSE : Convolve_C;
-    convolve_proc_ = Convolve_C;
-}
-#endif
-#elif defined(WEBRTC_HAS_NEON)
-#define CONVOLVE_FUNC Convolve_NEON
-void SincResampler::InitializeCPUSpecificFeatures() {}
-#else
+// 2021-07-12 : SSE2 related error is so annoying.
+// no SSE
 // Unknown architecture.
 #define CONVOLVE_FUNC Convolve_C
 void SincResampler::InitializeCPUSpecificFeatures() {}
-#endif
+
+
+//  // If we know the minimum architecture at compile time, avoid CPU detection.
+//  #if defined(WEBRTC_ARCH_X86_FAMILY)
+//  #if defined(__SSE2__)
+//  #define CONVOLVE_FUNC Convolve_SSE
+//  void SincResampler::InitializeCPUSpecificFeatures() {}
+//  #else
+//  // x86 CPU detection required.  Function will be set by
+//  // InitializeCPUSpecificFeatures().
+//  // TODO(dalecurtis): Once Chrome moves to an SSE baseline this can be removed.
+//  #define CONVOLVE_FUNC convolve_proc_
+//  
+//  void SincResampler::InitializeCPUSpecificFeatures() {
+//    //convolve_proc_ = WebRtc_GetCPUInfo(kSSE2) ? Convolve_SSE : Convolve_C;
+//      convolve_proc_ = Convolve_C;
+//  }
+//  #endif
+//  #elif defined(WEBRTC_HAS_NEON)
+//  #define CONVOLVE_FUNC Convolve_NEON
+//  void SincResampler::InitializeCPUSpecificFeatures() {}
+//  #else
+//  // Unknown architecture.
+//  #define CONVOLVE_FUNC Convolve_C
+//  void SincResampler::InitializeCPUSpecificFeatures() {}
+//  #endif
 
 SincResampler::SincResampler(double io_sample_rate_ratio,
                              size_t request_frames,

@@ -24,3 +24,8 @@ you need wav file which is 16khz sample rate for test RNNVAD
 ```
 webrtc_rnnvad.exe -i test.wav -f features.file -o vadprob.file
 ```
+
+## NOTE  
+for linux env  
+in common\_audio/resampler/sinc\_resampler.cc    
+convolve\_SSE2 is disabled for convinience  
